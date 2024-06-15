@@ -12,6 +12,7 @@
 
 Canevas::Canevas()
 {
+   //test
 }
 
 Canevas::~Canevas()
