@@ -12,8 +12,8 @@
 
 Couche::Couche()
 {
-    classState_ = INIT;
-    stateAire_ = 0.0f;
+    layerState_ = INIT;
+    layerAire_ = 0.0f;
 
     for (int i = 0; i < MAX_FORMES; i++)
     {
@@ -27,7 +27,7 @@ Couche::~Couche()
 
 bool Couche::addShape(Forme *shape)
 {
-    if(shape == nullptr || classState_ != ACTIVE)
+    if(shape == nullptr || layerState_ != ACTIVE)
     {
         return 0;
     }
@@ -45,7 +45,7 @@ bool Couche::addShape(Forme *shape)
 
 Forme* Couche::rmShape(int index)
 {
-    if(index > MAX_FORMES || index < 0 || classState_ != ACTIVE)
+    if(index > MAX_FORMES || index < 0 || layerState_ != ACTIVE)
     {
         return nullptr;
     }
@@ -74,16 +74,16 @@ double Couche::getTotalAir()
 
     while(formes_[i] != nullptr)
     {
-        stateAire_ += formes_[i]->aire();
+        layerAire_ += formes_[i]->aire();
         i++;
     }
 
-    return stateAire_;
+    return layerAire_;
 }
 
 bool Couche::translateLayer(int x, int y)
 {
-    if(classState_ == ACTIVE)
+    if(layerState_ == ACTIVE)
     {
         int i = 0;
 
@@ -101,8 +101,8 @@ bool Couche::translateLayer(int x, int y)
 
 bool Couche::resetLayer()
 {
-    classState_ = INIT;
-    stateAire_ = 0.0f;
+    layerState_ = INIT;
+    layerAire_ = 0.0f;
 
     for (int i = 0; i < MAX_FORMES; i++)
     {
@@ -116,7 +116,7 @@ bool Couche::changeLayerState(int layerState)
 {
     if(layerState >= 1 && layerState <= 3)
     {
-        classState_ = layerState;
+        layerState_ = layerState;
         return 1;
     }
 

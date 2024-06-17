@@ -44,8 +44,8 @@ class Couche
     //================================================
     //Private members
      Forme* formes_[MAX_FORMES];
-     int classState_;
-     float stateAire_;
+     int layerState_;
+     float layerAire_;
      int layerNumber_;
 };
 
