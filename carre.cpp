@@ -5,7 +5,7 @@
  * Description: Implementation des methodes des classes decrites dans
  *    carre.h.
 ********/
-
+ 
 #include "carre.h"
 
 Carre::Carre(int x, int y, float sideLength)
