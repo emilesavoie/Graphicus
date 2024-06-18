@@ -14,8 +14,8 @@ Vecteur::Vecteur()
     int initialVectCapacity = VECTOR_INITIAL_CAPACITY;
 
     vect_ = new int[initialVectCapacity];
-    vectorCapacity_ = &initialVectCapacity;
-    vectorSize_ = &initialVectSize;
+    vectorCapacity_ = &initialVectCapacity; //Verify syntax
+    *vectorSize_ = initialVectSize;
 }
 
 Vecteur::~Vecteur()
@@ -42,7 +42,7 @@ void Vecteur::doubleCapacity()
     {
         newArr[i] = vect_[i];
     }
-
+    
     delete vect_;
 
     vect_ = newArr;
@@ -95,7 +95,7 @@ int* Vecteur::get(int index)
 {
     if(index < 0 || index > *vectorSize_)
     {
-        return &vect_[index]; 
+        return &vect_[index]; //Verify syntax
     }
 
     return nullptr;
