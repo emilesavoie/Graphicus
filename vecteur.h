@@ -22,16 +22,17 @@ public:
 
     //================================================
     //Public methods
-    int* getCapacity();
-    int* getSize();
-    
-    Couche* get(int index);
+    int getCapacity();
+    int getSize();
+
+    int* get(int index);
+    int* rm(int index);
 
     void doubleCapacity();
     void emptyVector();
-    void isEmpty();
-    bool add();
-    bool rm();
+    
+    bool isEmpty();
+    bool add(int *element);
     
     void disp(int index);
 
