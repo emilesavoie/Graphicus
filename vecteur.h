@@ -8,9 +8,9 @@
 #ifndef VECTEUR_H
 #define VECTEUR_H
 
-#define VECTOR_INITIAL_CAPACITY 1
-
 #include "couche.h"
+
+#define VECTOR_INITIAL_CAPACITY 1
 
 class Vecteur
 {
@@ -25,26 +25,24 @@ public:
     int getCapacity();
     int getSize();
 
-    int* get(int index);
-    int* rm(int index);
+    Couche* get(int index);
+    Couche* rm(int index);
 
     void doubleCapacity();
     void emptyVector();
     
     bool isEmpty();
-    bool add(int *element);
+    bool add(Couche* element);
     
     void disp(int index);
 
 private:
     //================================================
     //Private members
-    int *vect_;
-    int *vectorSize_;
-    int *vectorCapacity_;
+    Couche* vect_;
+    int vectorSize_;
+    int vectorCapacity_;
 
 };
-
-
 
 #endif

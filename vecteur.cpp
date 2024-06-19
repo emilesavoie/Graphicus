@@ -11,62 +11,55 @@
 Vecteur::Vecteur()
 {
     int initialVectSize = 0;
-    int initialVectCapacity = VECTOR_INITIAL_CAPACITY;
+    vectorCapacity_ = VECTOR_INITIAL_CAPACITY;
 
-    vect_ = new int[initialVectCapacity];
-    *vectorCapacity_ = initialVectCapacity;
-    *vectorSize_ = initialVectSize;
+    vect_ = new Couche[vectorCapacity_];
+    vectorSize_ = initialVectSize;
 }
 
 Vecteur::~Vecteur()
 {
+    delete[] vect_;
 }
 
 int Vecteur::getCapacity()
 {
-    return *vectorCapacity_;
+    return vectorCapacity_;
 }
 
 int Vecteur::getSize()
 {
-    return *vectorSize_;
+    return vectorSize_;
 }
 
 void Vecteur::doubleCapacity()
 {
-    int newCapacity = *vectorCapacity_ * 2;
+    int newCapacity = vectorCapacity_ * 2;
 
-    int *newArr = new int[newCapacity];
+    Couche* temp = new Couche[newCapacity];
 
-    for(int i = 0; i < *vectorCapacity_; i++)
+    for(int i = 0; i < vectorCapacity_; i++)
     {
-        newArr[i] = vect_[i];
+        temp[i] = vect_[i];
     }
     
-    delete vect_;
+    this->~Vecteur();
 
-    vect_ = newArr;
-    
-    *vectorCapacity_ = newCapacity;
+    vect_ = temp;
+    vectorCapacity_ = newCapacity;
 }
 
 void Vecteur::emptyVector()
 {
-    delete[] vect_;
-    vect_ = new int[*vectorCapacity_];
+    this->~Vecteur();
+    vect_ = new Couche[vectorCapacity_];
 
-    for(int i = 0; i < *vectorCapacity_; i++)
-    {
-        vect_[i] = NULL;
-    }
-
-    int newVectSize = *vectorSize_ * 2;
-    *vectorSize_ = newVectSize;
+    vectorSize_ = 0;
 }
 
 bool Vecteur::isEmpty()
 {
-    if(*vectorSize_ == 0)
+    if(vectorSize_ == 0)
     {
         return true;
     }
@@ -74,26 +67,26 @@ bool Vecteur::isEmpty()
     return false;
 }
 
-bool Vecteur::add(int *element)
+bool Vecteur::add(Couche *element)
 {
-    if(element != nullptr || *element > *vectorSize_)
+    if(element != nullptr)
     {
-        if(*vectorCapacity_ <= *vectorSize_ + 1)
+        if(vectorCapacity_ <= vectorSize_ + 1)
         {
-            doubleCapacity();
+            this->doubleCapacity();
         }
 
-        vect_[*vectorSize_] = *element;
-        *vectorSize_ += 1;
+        vect_[vectorSize_] = *element;
+        vectorSize_ += 1;
         return true;
     }
 
     return false;
 }
 
-int* Vecteur::get(int index)
+Couche* Vecteur::get(int index)
 {
-    if(index < 0 || index > *vectorSize_)
+    if(index > 0 || index <= vectorSize_)
     {
         return &vect_[index];
     }
@@ -101,13 +94,26 @@ int* Vecteur::get(int index)
     return nullptr;
 }
 
-int* Vecteur::rm(int index)
+Couche* Vecteur::rm(int index)
 {
     if(get(index) != nullptr)
     {
-        vect_[index] = NULL;
-        *vectorSize_ += -1;
-        *vectorCapacity_ += 1;
+        Couche* temp = new Couche[vectorCapacity_];
+
+        for(int i = 0; i < vectorSize_; i++)
+        {
+            if(i == index)
+            {
+                i++;
+            }
+
+            temp[i] = vect_[i];
+        }
+
+        this->~Vecteur();
+
+        vect_ = temp;
+        vectorSize_ -= 1;
 
         return get(index);
     }
