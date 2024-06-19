@@ -4,6 +4,7 @@
         "*.tcc": "cpp",
         "compare": "cpp",
         "type_traits": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "chrono": "cpp"
     }
 }

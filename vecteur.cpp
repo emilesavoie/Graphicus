@@ -14,7 +14,7 @@ Vecteur::Vecteur()
     int initialVectCapacity = VECTOR_INITIAL_CAPACITY;
 
     vect_ = new int[initialVectCapacity];
-    vectorCapacity_ = &initialVectCapacity; //Verify syntax
+    *vectorCapacity_ = initialVectCapacity;
     *vectorSize_ = initialVectSize;
 }
 
@@ -95,7 +95,7 @@ int* Vecteur::get(int index)
 {
     if(index < 0 || index > *vectorSize_)
     {
-        return &vect_[index]; //Verify syntax
+        return &vect_[index];
     }
 
     return nullptr;
