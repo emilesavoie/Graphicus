@@ -69,34 +69,114 @@ bool Canevas::reinitialiserCouche(int index)
 
 bool Canevas::activerCouche(int index)
 {
-   return true;
+   if(index > 0 && index < canevas.getSize())
+   {
+      Couche* couche;
+      couche = canevas.get(index);
+
+      if(couche->changeLayerState(ACTIVE))
+      {
+         return true;
+      }
+   }
+
+   return false;
 }
 
 bool Canevas::desactiverCouche(int index)
 {
-   return true;
+   if(index > 0 && index < canevas.getSize())
+   {
+      Couche* couche;
+      couche = canevas.get(index);
+
+      if(couche->changeLayerState(INACTIVE))
+      {
+         return true;
+      }
+   }
+
+   return false;
 }
 
 bool Canevas::ajouterForme(Forme *p_forme)
 {
-   return true;
+   if(p_forme != nullptr)
+   {
+      Couche* couche;
+      couche = canevas.get(canevas.getSize() + 1);
+
+      if(couche->addShape(p_forme))
+      {
+         return true;
+      }
+           
+   }
+
+   return false;
 }
 
 bool Canevas::retirerForme(int index)
 {
-   return true;
+   if(index > 0 && index < canevas.getSize())
+   {
+      Couche* couche;
+      couche = canevas.get(index);
+
+      if(couche->rmShape(index))
+      {
+         return true;
+      }
+   }
+
+   return false;
 }
 
 double Canevas::aire()
 {
-   return 0.0;
+   double canevasAir = 0;
+
+   for(int i = 0; i < canevas.getSize(); i++)
+   {
+      Couche* couche;
+      couche = canevas.get(i);
+
+      canevasAir += couche->getTotalAir();
+   }
+   return canevasAir;
 }
 
 bool Canevas::translater(int deltaX, int deltaY)
 {
+   for(int i = 0; i < canevas.getSize(); i++)
+   {
+      Couche* couche;
+      couche = canevas.get(i);
+
+      if(couche->translateLayer(deltaX, deltaY))
+      {
+         return true;
+      }
+   }
+
    return true;
 }
 
 void Canevas::afficher(ostream & s)
-{
+{      
+   
+   if(canevas.getSize() == 0)
+   {
+      s << "---- Aucune couche -----" << endl;
+   }
+
+   for(int i = 0; i < canevas.getSize(); i++)
+   {
+      s << "----- Couche " << i << " -----";
+
+      Couche* couche;
+      couche = canevas.get(i);
+
+      couche->dispLayer(cout);
+   }
 }
