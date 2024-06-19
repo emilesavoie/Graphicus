@@ -12,34 +12,60 @@
 
 Canevas::Canevas()
 {
-   //test
-}
+   Vecteur canevas;
+};
 
 Canevas::~Canevas()
 {
+   canevas.~Vecteur();
 }
 
 bool Canevas::ajouterCouche()
 {
-   return true;
+   Couche* couche;
+
+   if(canevas.add(couche))
+   {
+      return true;
+   }
+
+   return false;
 }
 
 bool Canevas::retirerCouche(int index)
 {
-   return true;
+   if(canevas.rm(index))
+   {
+      return true;
+   }
+
+   return false;
 }
 
 
-bool Canevas::reinitialiser()
+bool Canevas::reinitialiser() //Check return false case;
 {
+   canevas.~Vecteur();
+
+   Vecteur canevas;
+
    return true;
 }
 
 bool Canevas::reinitialiserCouche(int index)
 {
-   return true;
-}
+   Couche* couche;
 
+   if(canevas.get(index) != nullptr)
+   {
+      couche = canevas.get(index);
+      couche->resetLayer();
+
+      return true;
+   }
+
+   return false;
+}
 
 bool Canevas::activerCouche(int index)
 {
@@ -50,7 +76,6 @@ bool Canevas::desactiverCouche(int index)
 {
    return true;
 }
-
 
 bool Canevas::ajouterForme(Forme *p_forme)
 {

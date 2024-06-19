@@ -38,7 +38,7 @@ class Couche
     bool translateLayer(int x, int y);
     bool resetLayer();
     bool changeLayerState(int layerState);
-    void dispLayer();
+    void dispLayer(ostream & s);
    
    private:
     //================================================

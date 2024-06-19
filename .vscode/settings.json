@@ -5,6 +5,7 @@
         "compare": "cpp",
         "type_traits": "cpp",
         "new": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "iostream": "cpp"
     }
 }

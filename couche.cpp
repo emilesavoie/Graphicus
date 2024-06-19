@@ -29,7 +29,7 @@ bool Couche::addShape(Forme *shape)
 {
     if(shape == nullptr || layerState_ != ACTIVE)
     {
-        return 0;
+        return false;
     }
 
     for (int i = 0; i < MAX_FORMES; i++)
@@ -40,7 +40,7 @@ bool Couche::addShape(Forme *shape)
         }
     }
 
-    return 1;
+    return true;
 }
 
 Forme* Couche::rmShape(int index)
@@ -93,13 +93,13 @@ bool Couche::translateLayer(int x, int y)
             i++;
         }
 
-        return 1;
+        return true;
     }
 
-    return 0;  
+    return false;  
 }
 
-bool Couche::resetLayer()
+bool Couche::resetLayer() //Check for fasle return case
 {
     layerState_ = INIT;
     layerAire_ = 0.0f;
@@ -109,7 +109,7 @@ bool Couche::resetLayer()
         formes_[i] = nullptr;
     }
 
-    return 1;   
+    return true;   
 }
 
 bool Couche::changeLayerState(int layerState)
@@ -117,13 +117,13 @@ bool Couche::changeLayerState(int layerState)
     if(layerState >= 1 && layerState <= 3)
     {
         layerState_ = layerState;
-        return 1;
+        return true;
     }
 
-    return 0;
+    return false;
 }
 
-void Couche::dispLayer()
+void Couche::dispLayer(ostream & s)
 {
     
 }
