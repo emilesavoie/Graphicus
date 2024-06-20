@@ -36,6 +36,7 @@ protected:
     //================================================
     //Protected members
     Dimensions dimensions_;
+    string shape_ = "Rectangle";
 };
 
 

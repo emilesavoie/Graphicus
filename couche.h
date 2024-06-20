@@ -46,7 +46,6 @@ class Couche
      Forme* formes_[MAX_FORMES];
      int layerState_;
      float layerAire_;
-     int layerNumber_;
 };
 
 #endif

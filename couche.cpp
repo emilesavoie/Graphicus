@@ -125,7 +125,30 @@ bool Couche::changeLayerState(int layerState)
 
 void Couche::dispLayer(ostream & s)
 {
-    
+    string state;
+
+    if(layerState_ == 1)
+    {
+        state = "initialise";
+    }
+    else if(layerState_ == 2)
+    {
+        state = "active";
+    }
+    else if(layerState_ == 3)
+    {
+        state = "inactive";
+    }
+
+    s << "Etat: " << state << endl;
+
+    int i = 0;
+
+    while(formes_[i] != nullptr)
+    {
+        formes_[i]->afficher(cout);
+    }
+        
 }
 
 
