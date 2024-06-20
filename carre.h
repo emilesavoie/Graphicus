@@ -15,8 +15,9 @@ class Carre:public Forme
 public:
     //================================================
     //Constructor
+    Carre();
     Carre(int x, int y, float sideLength);
-
+    
     //================================================
     //Public methods
     float getSideLength();

@@ -15,6 +15,7 @@ class Cercle:public Forme
 public:
     //================================================
     //Constructor
+    Cercle();
     Cercle(int x, int y, float radius);
 
     //================================================

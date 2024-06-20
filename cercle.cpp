@@ -8,6 +8,13 @@
 
 #include "cercle.h"
 
+Cercle::Cercle()
+    :Forme(0, 0)
+{
+    radius_ = 1;
+    aire_ = this->aire();
+}
+
 Cercle::Cercle(int x, int y, float radius)
     :Forme(x, y)
 {
@@ -22,6 +29,7 @@ float Cercle::getRadius()
 void Cercle::setRadius(float radius)
 {
     radius_ = radius;
+    aire_ = this->aire();
 }
 
 double Cercle::aire()
@@ -32,5 +40,5 @@ double Cercle::aire()
 
 void Cercle::afficher(ostream & s)
 {
-    s << "" << shape_ << "( x= " << ancrage.x << ", y= " << ancrage.y << ", c= " << radius_ << ", aire= " << aire_ << std::endl;
+    s << shape_ << " (x= " << ancrage.x << ", y=" << ancrage.y << ", c=" << radius_ << ", aire=" << aire_ << ")" << std::endl;
 }

@@ -32,13 +32,14 @@ bool Couche::addShape(Forme *shape)
         return false;
     }
 
-    for (int i = 0; i < MAX_FORMES; i++)
+    int i = 0;
+
+    while(formes_[i] != nullptr)
     {
-        if (formes_[i] == nullptr)
-        {
-            formes_[i] = shape;
-        }
+        i++;
     }
+
+    formes_[i] = shape;
 
     return true;
 }
@@ -147,13 +148,7 @@ void Couche::dispLayer(ostream & s)
     while(formes_[i] != nullptr)
     {
         formes_[i]->afficher(cout);
+        i++;
     }
         
 }
-
-
-
-
-
-
-

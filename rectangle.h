@@ -18,6 +18,7 @@ class Rectangle:public Forme
 public:
     //================================================
     //Constructor
+    Rectangle();
     Rectangle(int x, int y, float height, float length);
 
     //================================================
@@ -32,11 +33,7 @@ private:
     //Private members
     string shape_ = "Rectangle";
     float aire_;
-protected:
-    //================================================
-    //Protected members
-    Dimensions dimensions_;
-    string shape_ = "Rectangle";
+    Dimensions dimensions_;;
 };
 
 

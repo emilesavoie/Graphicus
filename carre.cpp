@@ -8,6 +8,13 @@
  
 #include "carre.h"
 
+Carre::Carre()
+    :Forme(0, 0)
+{
+    sideLength_ = 1;
+    aire_ = this->aire();
+}
+
 Carre::Carre(int x, int y, float sideLength)
     :Forme(x, y)
 {
@@ -32,5 +39,5 @@ double Carre::aire()
 
 void Carre::afficher(ostream & s)
 {
-    s << "" << shape_ << "( x= " << ancrage.x << ", y= " << ancrage.y << ", c= " << sideLength_ << ", aire= " << aire_ << std::endl;
+    s << shape_ << " (x=" << ancrage.x << ", y=" << ancrage.y << ", c=" << sideLength_ << ", aire=" << aire_ <<  ")" << std::endl;
 }
