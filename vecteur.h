@@ -39,10 +39,9 @@ public:
 private:
     //================================================
     //Private members
-    Couche* vect_;
+    Couche** vect_;
     int vectorSize_;
     int vectorCapacity_;
-
 };
 
 #endif

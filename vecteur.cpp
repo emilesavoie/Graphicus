@@ -10,15 +10,18 @@
 
 Vecteur::Vecteur()
 {
-    int initialVectSize = 0;
     vectorCapacity_ = VECTOR_INITIAL_CAPACITY;
-
-    vect_ = new Couche[vectorCapacity_];
-    vectorSize_ = initialVectSize;
+    vect_ = new Couche*[vectorCapacity_];
+    vectorSize_ = 0;
 }
 
 Vecteur::~Vecteur()
 {
+    for(int i = 0; i < vectorSize_; i++)
+    {
+        delete vect_[i];
+    }
+
     delete[] vect_;
 }
 
@@ -40,19 +43,19 @@ void Vecteur::doubleCapacity()
 
     for(int i = 0; i < vectorCapacity_; i++)
     {
-        temp[i] = vect_[i];
+        temp[i] = *vect_[i];
     }
     
     this->~Vecteur();
 
-    vect_ = temp;
+    *vect_ = temp;
     vectorCapacity_ = newCapacity;
 }
 
 void Vecteur::emptyVector()
 {
     this->~Vecteur();
-    vect_ = new Couche[vectorCapacity_];
+    vect_ = new Couche*[vectorCapacity_];
 
     vectorSize_ = 0;
 }
@@ -76,7 +79,7 @@ bool Vecteur::add(Couche *element)
             this->doubleCapacity();
         }
 
-        vect_[vectorSize_] = *element;
+        *vect_[vectorSize_] = *element;
         vectorSize_ += 1;
         return true;
     }
@@ -88,7 +91,7 @@ Couche* Vecteur::get(int index)
 {
     if(index > 0 || index <= vectorSize_)
     {
-        return &vect_[index];
+        return vect_[index];
     }
 
     return nullptr;
@@ -107,16 +110,26 @@ Couche* Vecteur::rm(int index)
                 i++;
             }
 
-            temp[i] = vect_[i];
+            temp[i] = *vect_[i];
         }
 
         this->~Vecteur();
 
-        vect_ = temp;
+        *vect_ = temp;
         vectorSize_ -= 1;
 
         return get(index);
     }
 
     return nullptr;
+}
+
+void Vecteur::disp(int index)
+{
+    
+    for(int i = 0; i < vectorSize_; i++)
+    {
+        std::cout << "----- Couche " << i << "-----" << endl;
+        vect_[i]->dispLayer(cout);
+    }
 }

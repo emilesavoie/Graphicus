@@ -12,12 +12,10 @@
 
 Canevas::Canevas()
 {
-   Vecteur canevas;
-};
+}
 
 Canevas::~Canevas()
 {
-   canevas.~Vecteur();
 }
 
 bool Canevas::ajouterCouche()

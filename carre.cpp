@@ -9,14 +9,14 @@
 #include "carre.h"
 
 Carre::Carre()
-    :Forme(0, 0)
+    :Rectangle()
 {
     sideLength_ = 1;
     aire_ = this->aire();
 }
 
 Carre::Carre(int x, int y, float sideLength)
-    :Forme(x, y)
+    :Rectangle(x, y, 1, 1)
 {
     sideLength_ = sideLength;
 }

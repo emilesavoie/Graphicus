@@ -36,11 +36,15 @@ bool Couche::addShape(Forme *shape)
 
     while(formes_[i] != nullptr)
     {
+        if(i == MAX_FORMES)
+        {
+            return false;
+        }
         i++;
     }
 
     formes_[i] = shape;
-
+    
     return true;
 }
 

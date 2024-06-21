@@ -8,9 +8,9 @@
 #ifndef CARRE_H
 #define CARRE_H
 
-#include "forme.h"
+#include "rectangle.h"
 
-class Carre:public Forme
+class Carre:public Rectangle
 {
 public:
     //================================================
