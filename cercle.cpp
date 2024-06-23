@@ -19,6 +19,7 @@ Cercle::Cercle(int x, int y, float radius)
     :Forme(x, y)
 {
     radius_ = radius;
+    aire_ = this->aire();
 }
 
 float Cercle::getRadius()

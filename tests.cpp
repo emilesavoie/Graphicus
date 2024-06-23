@@ -143,9 +143,11 @@ void Tests::tests_unitaires_vecteur()
    couche1->addShape(rectangle);
    couche1->addShape(cercle);
 
-   couche1->dispLayer(cout);
+   // couche1->dispLayer(cout);
 
    Couche *couche2 = new Couche();
+
+   couche2->changeLayerState(ACTIVE);
 
    couche2->addShape(cercle2);
    couche2->addShape(carre2);
@@ -156,22 +158,204 @@ void Tests::tests_unitaires_vecteur()
    vect->add(couche1);
    vect->add(couche2);
 
-   vect->disp(0);
-   vect->disp(1);
+   vect->disp(std::cout);
 
-   delete[] cercle;
-   delete[] rectangle;
-   delete[] carre;
+   delete cercle;
+   delete rectangle;
+   delete carre;
+
+   delete cercle2;
+   delete rectangle2;
+   delete carre2;
 
    delete couche1;
    delete couche2;
-
-   delete vect;
 }
 
 void Tests::tests_unitaires_canevas()
 {
    // Tests sur la classe Canevas
+}
+
+void Tests::tests_valid()
+{
+   std::cout << std::endl;
+   std::cout << "ETAPE 1-2" << std::endl;
+   std::cout << "1: Creation d'un canevas" << std::endl;
+   std::cout << "2: Affichage de son contenu" << std::endl;
+   std::cout << std::endl;
+
+   Canevas *canevas = new Canevas();
+   canevas->afficher(std::cout);
+
+   std::cout << std::endl;
+
+   std::cout << "ETAPE 3-5" << std::endl;
+   std::cout << "3: Ajout de 5 couches au canevas" << std::endl;
+   std::cout << "4: Affichage de son contenu" << std::endl;
+   std::cout << std::endl;
+
+   for (int i = 0; i < 5; i++)
+   {
+      canevas->ajouterCouche();
+   }
+
+   canevas->afficher(std::cout);
+
+   std::cout << std::endl;
+   std::cout << "5. Affichage de l'aire du canevas" << std::endl;
+   std::cout << "Aire du canevas: " << canevas->aire() << std::endl;
+
+   std::cout << std::endl;
+   std::cout << "ETAPE 6-9" << std::endl;
+   std::cout << "6: Activer la couche 2 et y ajouter les elements suivant" << std::endl;
+   std::cout << "    " << "cercle (x=0, y=1, rayon=5)" << std::endl;
+   std::cout << "    " << "carre (x=1, y=2, cote=6)" << std::endl;
+   std::cout << "    " << "rectangle (x=2, y=3, largeur=4, hauteur=9)" << std::endl;
+
+   Forme *cercle1 = new Cercle(0, 1, 5);
+   Forme *carre1 = new Carre(1, 2, 6);
+   Forme *rectange1 = new Rectangle(2, 3, 4, 9);
+
+   canevas->activerCouche(2);
+   canevas->ajouterForme(cercle1);
+   canevas->ajouterForme(carre1);
+   canevas->ajouterForme(rectange1);
+
+   std::cout << "7: Activer la couche 1 et y ajouter les elements suivant" << std::endl;
+   std::cout << "    " << "rectangle (x=0, y=0, largeur=12, hauteur=3)" << std::endl;
+   std::cout << "8: Affichage de son contenu" << std::endl;
+   std::cout << std::endl;
+
+   Forme *rectange2 = new Rectangle(0, 0, 12, 3);
+
+   canevas->activerCouche(1);
+   canevas->ajouterForme(rectange2);
+
+   canevas->afficher(std::cout);
+
+   std::cout << std::endl;
+   std::cout << "9. Afficher l'aire du canevas" << std::endl;
+   std::cout << "Aire du canevas: " << canevas->aire() << std::endl;
+
+   std::cout << std::endl;
+   std::cout << "ETAPE 10-13" << std::endl;
+   std::cout << "10: Activer la couche 0 et y ajouter les elements suivant" << std::endl;
+   std::cout << "    " << "rectangle (x=0, y=0, largeur=1, hauteur=1)" << std::endl;
+   std::cout << "    " << "carre (x=0, y=0, cote=1)" << std::endl;
+   std::cout << "    " << "cercle (x=0, y=0, rayon = 1)" << std::endl;
+   std::cout << "11: Activer la couche la couche 2 et appliquer une translation de x=2 et y=1" << std::endl;
+   std::cout << "12: Afficher de son contenu" << std::endl;
+   std::cout << std::endl;
+
+   Forme *rectangle3 = new Rectangle();
+   Forme *carre3 = new Carre();
+   Forme *cercle3 = new Cercle();
+
+   canevas->activerCouche(0);
+
+   canevas->ajouterForme(rectangle3);
+   canevas->ajouterForme(carre3);
+   canevas->ajouterForme(cercle3);
+
+   canevas->activerCouche(2);
+   canevas->translater(2, 1);
+
+   canevas->afficher(std::cout);
+
+   std::cout << std::endl;
+   std::cout << "13. Affichage de l'aire du canevas" << std::endl;
+   std::cout << "Aire du canevas: " << canevas->aire() << std::endl;
+
+   std::cout << std::endl;
+   std::cout << "ETAPE 14-20" << std::endl;
+   std::cout << "14: Activer la couche 0 et retirer la deuxieme forme" << std::endl;
+   std::cout << "15: Reinitialiser la couche 1" << std::endl;
+   std::cout << "16:Activer la couche 2" << std::endl;
+   std::cout << "17: Enlever la couche 2 du canevas" << std::endl;
+   std::cout << "18: Activer la couche 4" << std::endl;
+   std::cout << std::endl;
+
+   canevas->activerCouche(0);
+   canevas->retirerForme(1);
+
+   canevas->reinitialiserCouche(1);
+
+   canevas->activerCouche(2);
+   canevas->retirerCouche(2);
+
+   if (!canevas->activerCouche(4))
+   {
+      std::cout << "L'ajout n'a pas pu etre effectue, car l'indexe est invalide" << std::endl;
+      std::cout << "Aucune modification est donc apporte au canevas" << std::endl;
+      std::cout << std::endl;
+   }
+
+   std::cout << "19: Afficher le contenu du canevas" << std::endl;
+   std::cout << std::endl;
+
+   canevas->afficher(std::cout);
+
+   std::cout << std::endl;
+   std::cout << "20: Afficher l'aire du canevas" << std::endl;
+   std::cout << "Aire du canevas: " << canevas->aire() << std::endl;
+   std::cout << std::endl;
+
+   std::cout << "ETAPE 21-23" << std::endl;
+   std::cout << "21: Reinitialiser le canevas" << std::endl;
+   std::cout << "22: Afficher le canevas" << std::endl;
+   std::cout << std::endl;
+
+   canevas->reinitialiser();
+   canevas->afficher(std::cout);
+
+   std::cout << std::endl;
+   std::cout << "23: Afficher l'aire" << std::endl;
+   std::cout << "Aire du canevas: " << canevas->aire() << std::endl;
+   std::cout << std::endl;
+
+   std::cout << "ETAPE 24-27" << std::endl;
+   std::cout << "24: Activer la couche 3 et ajouter les elements suivants" << std::endl;
+   std::cout << std::endl;
+
+   if (!canevas->activerCouche(3))
+   {
+      std::cout << "L'activation n'a pas pu etre effectue, car l'indexe est invalide" << std::endl;
+      std::cout << "Aucune modification est donc apporte au canevas" << std::endl;
+      std::cout << std::endl;
+   }
+
+   Forme *carre4 = new Carre(10, 10, 10);
+   Forme *null = nullptr;
+
+   std::cout << "    carre (x=10, y=10, cote=10)" << std::endl;
+   std::cout << std::endl;
+
+   if (!canevas->ajouterForme(carre4))
+   {
+      std::cout << "L'ajout n'a pas pu etre effectue, car la couche n'est pas active" << std::endl;
+      std::cout << "Aucune modification est donc apporte au canevas" << std::endl;
+      std::cout << std::endl;
+   }
+
+   std::cout << "    Pointeur null" << std::endl;
+   std::cout << std::endl;
+   if (!canevas->ajouterForme(null))
+   {
+      std::cout << "L'ajout n'a pas pu etre effectue, car l'ajout d'un pointeur nulle est interdite" << std::endl;
+      std::cout << "Aucune modification est donc apporte au canevas" << std::endl;
+      std::cout << std::endl;
+   }
+
+   std::cout << "26: Afficher le contenu du canevas" << std::endl;
+   std::cout << std::endl;
+
+   canevas->afficher(std::cout);
+
+   std::cout << std::endl;
+   std::cout << "27: Afficher l'aire" << std::endl;
+   std::cout << "Aire du canevas: " << canevas->aire() << std::endl;
+   std::cout << std::endl;
 }
 
 void Tests::tests_unitaires()
@@ -186,17 +370,15 @@ void Tests::tests_unitaires()
 void Tests::tests_application()
 {
    // Fait tous les tests applicatifs
-   tests_unitaires_vecteur();
-   // tests_application_cas_01();
+   tests_application_cas_01();
    // tests_application_cas_02();
 }
 
 void Tests::tests_application_cas_01()
 {
-   cout << "========== TESTS APPLICATION (FORMES) ==========" << endl;
-   // tests_unitaires_formes();
+   cout << "========== TESTS VALIDATION ==========" << endl;
+   tests_valid();
    // tests_unitaires_couche();
-   tests_unitaires_vecteur();
 }
 
 void Tests::tests_application_cas_02()

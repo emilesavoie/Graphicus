@@ -29,6 +29,24 @@ public:
    void tests_application_cas_01();
    void tests_application_cas_02();
    void tests_application(); // Appel de tous les tests applicatifs
+
+   // Methodes pour la validation
+   void tests_valid();
 };
 
 #endif
+
+/*
+QUESTIONS
+   1. Return bool = true vs 1;
+   2. detruire vs vider vecteur
+   3. Precision pour point 6 de classe canevas:
+         Elle offre la possibilité de réinitialiser une couche. Le tableau de formes de la couche est alors vidé
+      et l’état de la couche devient initialisée si la couche n’est pas à l’état active
+
+ADD ONS
+   1. Bien tester la fonction de retirer une couche (tester la destruction)
+   2. Probleme avec l'aire du canevas
+   3. Verif reinit vs delete vs empty for all classes
+   4. Etapes 24-27
+*/

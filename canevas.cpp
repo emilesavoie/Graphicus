@@ -1,12 +1,12 @@
 /********
  * Fichier: canevas.cpp
- * Auteurs: C.-A. Brunet 
+ * Auteurs: C.-A. Brunet
  * Date: 13 juin 2024 (creation)
  * Modifie par : Emile Savoie
  * Date : 16 juin 2024
  * Description: Implementation des methodes des classes decrites dans
  *    canevas.h. Ce fichier fait partie de la distribution de Graphicus.
-********/
+ ********/
 
 #include "canevas.h"
 
@@ -20,10 +20,22 @@ Canevas::~Canevas()
 
 bool Canevas::ajouterCouche()
 {
-   Couche* couche;
+   Couche *couche = new Couche();
 
-   if(canevas.add(couche))
+   for (int i = 0; i < canevas.getSize(); i++)
    {
+      if (canevas.get(i)->getState() == ACTIVE)
+      {
+         if (canevas.add(couche))
+         {
+            return true;
+         }
+      }
+   }
+
+   if (canevas.add(couche))
+   {
+      couche->changeLayerState(ACTIVE);
       return true;
    }
 
@@ -32,7 +44,7 @@ bool Canevas::ajouterCouche()
 
 bool Canevas::retirerCouche(int index)
 {
-   if(canevas.rm(index))
+   if (canevas.rm(index))
    {
       return true;
    }
@@ -40,24 +52,28 @@ bool Canevas::retirerCouche(int index)
    return false;
 }
 
-
-bool Canevas::reinitialiser() //Check return false case;
+bool Canevas::reinitialiser() // Check return false case;
 {
-   canevas.~Vecteur();
-
-   Vecteur canevas;
-
+   canevas.emptyVector();
+   
    return true;
 }
 
 bool Canevas::reinitialiserCouche(int index)
 {
-   Couche* couche;
-
-   if(canevas.get(index) != nullptr)
+   if(index >= 0 || index < canevas.getSize())
    {
-      couche = canevas.get(index);
-      couche->resetLayer();
+      if(canevas.get(index)->getState() == ACTIVE)
+      {
+         if(canevas.get(index)->resetLayer())
+         {
+            canevas.get(index)->changeLayerState(ACTIVE);
+         }
+      }
+      else
+      {
+         canevas.get(index)->resetLayer();
+      }
 
       return true;
    }
@@ -67,12 +83,17 @@ bool Canevas::reinitialiserCouche(int index)
 
 bool Canevas::activerCouche(int index)
 {
-   if(index > 0 && index < canevas.getSize())
+   if (index >= 0 && index < canevas.getSize())
    {
-      Couche* couche;
-      couche = canevas.get(index);
+      for (int i = 0; i < canevas.getSize(); i++)
+      {
+         if (canevas.get(i)->getState() == ACTIVE)
+         {
+            canevas.get(i)->changeLayerState(INACTIVE);
+         }
+      }
 
-      if(couche->changeLayerState(ACTIVE))
+      if (canevas.get(index)->changeLayerState(ACTIVE))
       {
          return true;
       }
@@ -83,12 +104,12 @@ bool Canevas::activerCouche(int index)
 
 bool Canevas::desactiverCouche(int index)
 {
-   if(index > 0 && index < canevas.getSize())
+   if (index > 0 && index < canevas.getSize())
    {
-      Couche* couche;
+      Couche *couche;
       couche = canevas.get(index);
 
-      if(couche->changeLayerState(INACTIVE))
+      if (couche->changeLayerState(INACTIVE))
       {
          return true;
       }
@@ -99,16 +120,18 @@ bool Canevas::desactiverCouche(int index)
 
 bool Canevas::ajouterForme(Forme *p_forme)
 {
-   if(p_forme != nullptr)
+   if (p_forme != nullptr)
    {
-      Couche* couche;
-      couche = canevas.get(canevas.getSize() + 1);
-
-      if(couche->addShape(p_forme))
+      for (int i = 0; i < canevas.getSize(); i++)
       {
-         return true;
+         if (canevas.get(i)->getState() == ACTIVE)
+         {
+            if (canevas.get(i)->addShape(p_forme))
+            {
+               return true;
+            }
+         }
       }
-           
    }
 
    return false;
@@ -116,14 +139,19 @@ bool Canevas::ajouterForme(Forme *p_forme)
 
 bool Canevas::retirerForme(int index)
 {
-   if(index > 0 && index < canevas.getSize())
+   if (index > 0 && index < canevas.getSize())
    {
-      Couche* couche;
-      couche = canevas.get(index);
-
-      if(couche->rmShape(index))
+      for (int i = 0; i < canevas.getSize(); i++)
       {
-         return true;
+         if (canevas.get(i)->getState() == ACTIVE)
+         {
+            if(canevas.get(i)->rmShape(index))
+            {
+               return true;
+               
+            }
+
+         }
       }
    }
 
@@ -134,24 +162,21 @@ double Canevas::aire()
 {
    double canevasAir = 0;
 
-   for(int i = 0; i < canevas.getSize(); i++)
+   for (int i = 0; i < canevas.getSize(); i++)
    {
-      Couche* couche;
-      couche = canevas.get(i);
-
-      canevasAir += couche->getTotalAir();
+      canevasAir += canevas.get(i)->getTotalAir();
    }
    return canevasAir;
 }
 
 bool Canevas::translater(int deltaX, int deltaY)
 {
-   for(int i = 0; i < canevas.getSize(); i++)
+   for (int i = 0; i < canevas.getSize(); i++)
    {
-      Couche* couche;
+      Couche *couche;
       couche = canevas.get(i);
 
-      if(couche->translateLayer(deltaX, deltaY))
+      if (couche->translateLayer(deltaX, deltaY))
       {
          return true;
       }
@@ -160,19 +185,19 @@ bool Canevas::translater(int deltaX, int deltaY)
    return true;
 }
 
-void Canevas::afficher(ostream & s)
-{      
-   
-   if(canevas.getSize() == 0)
+void Canevas::afficher(ostream &s)
+{
+
+   if (canevas.getSize() == 0)
    {
       s << "---- Aucune couche -----" << endl;
    }
 
-   for(int i = 0; i < canevas.getSize(); i++)
+   for (int i = 0; i < canevas.getSize(); i++)
    {
-      s << "----- Couche " << i << " -----";
+      s << "----- Couche " << i << " -----" << endl;
 
-      Couche* couche;
+      Couche *couche;
       couche = canevas.get(i);
 
       couche->dispLayer(cout);

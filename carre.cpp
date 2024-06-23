@@ -19,6 +19,7 @@ Carre::Carre(int x, int y, float sideLength)
     :Rectangle(x, y, 1, 1)
 {
     sideLength_ = sideLength;
+    aire_ = this->aire();
 }
 
 float Carre::getSideLength()

@@ -77,6 +77,8 @@ double Couche::getTotalAir()
 {
     int i = 0;
 
+    layerAire_ = 0;
+
     while(formes_[i] != nullptr)
     {
         layerAire_ += formes_[i]->aire();
@@ -128,6 +130,11 @@ bool Couche::changeLayerState(int layerState)
     return false;
 }
 
+int Couche::getState()
+{
+    return layerState_;
+}
+
 void Couche::dispLayer(ostream & s)
 {
     string state;
@@ -146,6 +153,11 @@ void Couche::dispLayer(ostream & s)
     }
 
     s << "Etat: " << state << endl;
+
+    if(formes_[0] == nullptr)
+    {
+        s << "Couche: vide" << endl;
+    }
 
     int i = 0;
 

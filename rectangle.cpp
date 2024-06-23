@@ -21,6 +21,7 @@ Rectangle::Rectangle(int x, int y, float height, float length)
 {
     dimensions_.height = height;
     dimensions_.length = length;
+    aire_ = this->aire();
 }
 
 Dimensions Rectangle::getDimensions()

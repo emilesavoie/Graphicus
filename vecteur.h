@@ -10,7 +10,7 @@
 
 #include "couche.h"
 
-#define VECTOR_INITIAL_CAPACITY 1
+#define VECTOR_INITIAL_CAPACITY 2
 
 class Vecteur
 {
@@ -34,7 +34,7 @@ public:
     bool isEmpty();
     bool add(Couche* element);
     
-    void disp(int index);
+    void disp(ostream & s);
 
 private:
     //================================================
