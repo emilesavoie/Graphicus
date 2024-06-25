@@ -6,7 +6,7 @@
  * Date : 16 juin 2024
  * Description: Implementation des methodes des classes decrites dans
  *    couche.h. Ce fichier fait partie de la distribution de Graphicus.
-********/
+ ********/
 
 #include "couche.h"
 
@@ -18,7 +18,7 @@ Couche::Couche()
     for (int i = 0; i < MAX_FORMES; i++)
     {
         formes_[i] = nullptr;
-    }    
+    }
 }
 
 Couche::~Couche()
@@ -27,16 +27,16 @@ Couche::~Couche()
 
 bool Couche::addShape(Forme *shape)
 {
-    if(shape == nullptr || layerState_ != ACTIVE)
+    if (shape == nullptr || layerState_ != ACTIVE)
     {
         return false;
     }
 
     int i = 0;
 
-    while(formes_[i] != nullptr)
+    while (formes_[i] != nullptr)
     {
-        if(i == MAX_FORMES)
+        if (i == MAX_FORMES)
         {
             return false;
         }
@@ -44,28 +44,28 @@ bool Couche::addShape(Forme *shape)
     }
 
     formes_[i] = shape;
-    
+
     return true;
 }
 
-Forme* Couche::rmShape(int index)
+Forme *Couche::rmShape(int index)
 {
-    if(index > MAX_FORMES || index < 0 || layerState_ != ACTIVE)
+    if (index > MAX_FORMES || index < 0 || layerState_ != ACTIVE)
     {
         return nullptr;
     }
 
-    for(int i = index; i < MAX_FORMES - 1; i++)
+    for (int i = index; i < MAX_FORMES - 1; i++)
     {
-        formes_[i] = formes_[i+1];
+        formes_[i] = formes_[i + 1];
     }
 
     return formes_[index];
 }
 
-Forme* Couche::getShape(int index)
+Forme *Couche::getShape(int index)
 {
-    if(index > MAX_FORMES || index < 0)
+    if (index > MAX_FORMES || index < 0)
     {
         return nullptr;
     }
@@ -79,7 +79,7 @@ double Couche::getTotalAir()
 
     layerAire_ = 0;
 
-    while(formes_[i] != nullptr)
+    while (formes_[i] != nullptr)
     {
         layerAire_ += formes_[i]->aire();
         i++;
@@ -90,7 +90,7 @@ double Couche::getTotalAir()
 
 bool Couche::translateLayer(int x, int y)
 {
-    if(layerState_ == ACTIVE)
+    if (layerState_ == ACTIVE)
     {
         int i = 0;
 
@@ -103,10 +103,10 @@ bool Couche::translateLayer(int x, int y)
         return true;
     }
 
-    return false;  
+    return false;
 }
 
-bool Couche::resetLayer() //Check for fasle return case
+bool Couche::resetLayer() // Check for fasle return case
 {
     layerState_ = INIT;
     layerAire_ = 0.0f;
@@ -116,12 +116,12 @@ bool Couche::resetLayer() //Check for fasle return case
         formes_[i] = nullptr;
     }
 
-    return true;   
+    return true;
 }
 
 bool Couche::changeLayerState(int layerState)
 {
-    if(layerState >= 1 && layerState <= 3)
+    if (layerState >= 1 && layerState <= 3)
     {
         layerState_ = layerState;
         return true;
@@ -135,36 +135,35 @@ int Couche::getState()
     return layerState_;
 }
 
-void Couche::dispLayer(ostream & s)
+void Couche::dispLayer(ostream &s)
 {
     string state;
 
-    if(layerState_ == 1)
+    if (layerState_ == 1)
     {
         state = "initialise";
     }
-    else if(layerState_ == 2)
+    else if (layerState_ == 2)
     {
         state = "active";
     }
-    else if(layerState_ == 3)
+    else if (layerState_ == 3)
     {
         state = "inactive";
     }
 
     s << "Etat: " << state << endl;
 
-    if(formes_[0] == nullptr)
+    if (formes_[0] == nullptr)
     {
         s << "Couche: vide" << endl;
     }
 
     int i = 0;
 
-    while(formes_[i] != nullptr)
+    while (formes_[i] != nullptr)
     {
         formes_[i]->afficher(cout);
         i++;
     }
-        
 }

@@ -1,0 +1,137 @@
+========== TESTS UNITAIRES ==========
+---------- Test constructeur par défaut ----------
+Cercle (x= 0, y=0, c=1, aire=3.14)
+Carre (x=0, y=0, c=1, aire=1)
+Rectangle (x= 0, y=0, l=1, h=1, aire=1)
+
+---------- Test set dimensions ----------
+Cercle (x= 0, y=0, c=5, aire=78.5)
+Carre (x=0, y=0, c=4, aire=1)
+Rectangle (x= 0, y=0, l=7, h=3, aire=21)
+---------- Test calcul aire ----------
+Aire du cercle: 78.5
+Aire du carré: 16
+Aire du rectangle: 21
+---------- Test valeurs limites ----------
+Cercle (x= 0, y=0, c=0, aire=0)
+Carre (x=0, y=0, c=-1, aire=16)
+Rectangle (x= 0, y=0, l=-2, h=3, aire=-6)
+Aire du cercle avec rayon 0: 0
+Aire du carré avec côté -1: 1
+Aire du rectangle avec largeur -2: -6
+========== TESTS UNITAIRE COUCHE ==========
+---------- Test add shape ----------
+Etat: active
+Cercle (x= 0, y=0, c=1, aire=3.14)
+Carre (x=0, y=0, c=1, aire=1)
+Rectangle (x= 0, y=0, l=1, h=1, aire=1)
+
+---------- Test remove shape ----------
+ - Remove rectangle
+Etat: active
+Cercle (x= 0, y=0, c=1, aire=3.14)
+Carre (x=0, y=0, c=1, aire=1)
+
+---------- Test get shape ----------
+ - Get cercle
+Cercle (x= 0, y=0, c=1, aire=3.14)
+ - Reprint couche
+Etat: active
+Cercle (x= 0, y=0, c=1, aire=3.14)
+Carre (x=0, y=0, c=1, aire=1)
+
+---------- Test total air ----------
+Total air: 4.14
+
+---------- Test Translate couche ----------
+ - Before
+Etat: active
+Cercle (x= 0, y=0, c=1, aire=3.14)
+Carre (x=0, y=0, c=1, aire=1)
+ - After: x = 3, y = -10
+Etat: active
+Cercle (x= 3, y=-10, c=1, aire=3.14)
+Carre (x=3, y=-10, c=1, aire=1)
+
+---------- Test reset layer ----------
+ - Before
+Etat: active
+Cercle (x= 3, y=-10, c=1, aire=3.14)
+Carre (x=3, y=-10, c=1, aire=1)
+ - After
+Etat: initialise
+Couche: vide
+
+---------- Test set couche state ----------
+ - Before
+Etat: initialise
+Couche: vide
+ - After: active
+Etat: active
+Couche: vide
+
+========== TESTS UNITAIRE VECTEUR ==========
+----- Couche 0-----
+Etat: active
+Carre (x=0, y=0, c=1, aire=1)
+Rectangle (x= 0, y=0, l=1, h=1, aire=1)
+Cercle (x= 0, y=0, c=1, aire=3.14)
+----- Couche 1-----
+Etat: active
+Cercle (x= 2, y=4, c=2, aire=12.56)
+Carre (x=2, y=3, c=1, aire=1)
+Rectangle (x= 0, y=5, l=2, h=1, aire=2)
+Capacity: 4
+Size: 2
+Retrieved Layer 1: 
+Etat: active
+Carre (x=0, y=0, c=1, aire=1)
+Rectangle (x= 0, y=0, l=1, h=1, aire=1)
+Cercle (x= 0, y=0, c=1, aire=3.14)
+Retrieved Layer 2: 
+Etat: active
+Cercle (x= 2, y=4, c=2, aire=12.56)
+Carre (x=2, y=3, c=1, aire=1)
+Rectangle (x= 0, y=5, l=2, h=1, aire=2)
+Removed Layer: 
+Etat: active
+Carre (x=0, y=0, c=1, aire=1)
+Rectangle (x= 0, y=0, l=1, h=1, aire=1)
+Cercle (x= 0, y=0, c=1, aire=3.14)
+Vecteur after removal: 
+----- Couche 0-----
+Etat: active
+Cercle (x= 2, y=4, c=2, aire=12.56)
+Carre (x=2, y=3, c=1, aire=1)
+Rectangle (x= 0, y=5, l=2, h=1, aire=2)
+Is empty: false
+Vecteur after emptying: 
+Is empty: true
+========== TESTS UNITAIRES CANEVAS ==========
+---------- Test ajout de formes dans différentes couches ----------
+----- Couche 0 -----
+Etat: inactive
+Cercle (x= 0, y=0, c=1, aire=3.14)
+----- Couche 1 -----
+Etat: inactive
+Carre (x=0, y=0, c=1, aire=1)
+----- Couche 2 -----
+Etat: active
+Rectangle (x= 0, y=0, l=1, h=1, aire=1)
+
+---------- Test suppression de formes dans différentes couches ----------
+----- Couche 0 -----
+Etat: inactive
+Cercle (x= 0, y=0, c=1, aire=3.14)
+----- Couche 1 -----
+Etat: active
+Carre (x=0, y=0, c=1, aire=1)
+----- Couche 2 -----
+Etat: inactive
+Rectangle (x= 0, y=0, l=1, h=1, aire=1)
+
+---------- Test calcul de l'aire totale ----------
+Aire totale du canevas: 10.28
+
+---------- Test reinitialisation du canevas ----------
+---- Aucune couche -----

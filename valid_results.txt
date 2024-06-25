@@ -1,0 +1,154 @@
+========== TESTS VALIDATION ==========
+
+ETAPE 1-2
+1: Creation d'un canevas
+2: Affichage de l'aire
+
+Aire du canevas: 0
+
+ETAPE 3-5
+3: Ajout de 5 couches au canevas
+4: Affichage de son contenu
+
+----- Couche 0 -----
+Etat: active
+Couche: vide
+----- Couche 1 -----
+Etat: initialise
+Couche: vide
+----- Couche 2 -----
+Etat: initialise
+Couche: vide
+----- Couche 3 -----
+Etat: initialise
+Couche: vide
+----- Couche 4 -----
+Etat: initialise
+Couche: vide
+
+5. Affichage de l'aire du canevas
+Aire du canevas: 0
+
+ETAPE 6-9
+6: Activer la couche 2 et y ajouter les elements suivant
+    cercle (x=0, y=1, rayon=5)
+    carre (x=1, y=2, cote=6)
+    rectangle (x=2, y=3, largeur=4, hauteur=9)
+7: Activer la couche 1 et y ajouter les elements suivant
+    rectangle (x=0, y=0, largeur=12, hauteur=3)
+8: Affichage de son contenu
+
+----- Couche 0 -----
+Etat: inactive
+Couche: vide
+----- Couche 1 -----
+Etat: active
+Rectangle (x= 0, y=0, l=3, h=12, aire=36)
+----- Couche 2 -----
+Etat: inactive
+Cercle (x= 0, y=1, c=5, aire=78.5)
+Carre (x=1, y=2, c=6, aire=36)
+Rectangle (x= 2, y=3, l=9, h=4, aire=36)
+----- Couche 3 -----
+Etat: initialise
+Couche: vide
+----- Couche 4 -----
+Etat: initialise
+Couche: vide
+
+9. Afficher l'aire du canevas
+Aire du canevas: 186.5
+
+ETAPE 10-13
+10: Activer la couche 0 et y ajouter les elements suivant
+    rectangle (x=0, y=0, largeur=1, hauteur=1)
+    carre (x=0, y=0, cote=1)
+    cercle (x=0, y=0, rayon = 1)
+11: Activer la couche la couche 2 et appliquer une translation de x=2 et y=1
+12: Afficher de son contenu
+
+----- Couche 0 -----
+Etat: inactive
+Rectangle (x= 0, y=0, l=1, h=1, aire=1)
+Carre (x=0, y=0, c=1, aire=1)
+Cercle (x= 0, y=0, c=1, aire=3.14)
+----- Couche 1 -----
+Etat: inactive
+Rectangle (x= 0, y=0, l=3, h=12, aire=36)
+----- Couche 2 -----
+Etat: active
+Cercle (x= 2, y=2, c=5, aire=78.5)
+Carre (x=3, y=3, c=6, aire=36)
+Rectangle (x= 4, y=4, l=9, h=4, aire=36)
+----- Couche 3 -----
+Etat: initialise
+Couche: vide
+----- Couche 4 -----
+Etat: initialise
+Couche: vide
+
+13. Affichage de l'aire du canevas
+Aire du canevas: 191.64
+
+ETAPE 14-20
+14: Activer la couche 0 et retirer la deuxieme forme
+15: Reinitialiser la couche 1
+16:Activer la couche 2
+17: Enlever la couche 2 du canevas
+18: Activer la couche 4
+
+test
+L'ajout n'a pas pu etre effectue, car l'indexe est invalide
+Aucune modification est donc apporte au canevas
+
+19: Afficher le contenu du canevas
+
+----- Couche 0 -----
+Etat: active
+Rectangle (x= 0, y=0, l=1, h=1, aire=1)
+Cercle (x= 0, y=0, c=1, aire=3.14)
+----- Couche 1 -----
+Etat: initialise
+Couche: vide
+----- Couche 2 -----
+Etat: initialise
+Couche: vide
+----- Couche 3 -----
+Etat: initialise
+Couche: vide
+
+20: Afficher l'aire du canevas
+Aire du canevas: 4.14
+
+ETAPE 21-23
+21: Reinitialiser le canevas
+22: Afficher le canevas
+
+---- Aucune couche -----
+
+23: Afficher l'aire
+Aire du canevas: 0
+
+ETAPE 24-27
+24: Activer la couche 3 et ajouter les elements suivants
+
+L'activation n'a pas pu etre effectue, car l'indexe est invalide
+Aucune modification est donc apporte au canevas
+
+    carre (x=10, y=10, cote=10)
+
+L'ajout n'a pas pu etre effectue, car la couche n'est pas active
+Aucune modification est donc apporte au canevas
+
+    Pointeur null
+
+L'ajout n'a pas pu etre effectue, car l'ajout d'un pointeur nulle est interdite
+Aucune modification est donc apporte au canevas
+
+26: Afficher le contenu du canevas
+
+---- Aucune couche -----
+
+27: Afficher l'aire
+Aire du canevas: 0
+

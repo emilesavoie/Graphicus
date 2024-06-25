@@ -10,60 +10,56 @@
  ********/
 
 #include "tests.h"
-#include "forme.h"
-#include "rectangle.h"
-#include "carre.h"
-#include "cercle.h"
 
 void Tests::tests_unitaires_formes()
 {
-    //----------------------------------------
-    // Test constructeur par défaut
-    std::cout << "---------- Test constructeur par défaut ----------" << std::endl;
-    Cercle *cercle = new Cercle();
-    Carre *carre = new Carre();
-    Rectangle *rectangle = new Rectangle();
+   //----------------------------------------
+   // Test constructeur par défaut
+   std::cout << "---------- Test constructeur par défaut ----------" << std::endl;
+   Cercle *cercle = new Cercle();
+   Carre *carre = new Carre();
+   Rectangle *rectangle = new Rectangle();
 
-    cercle->afficher(cout);
-    carre->afficher(cout);
-    rectangle->afficher(cout);
+   cercle->afficher(cout);
+   carre->afficher(cout);
+   rectangle->afficher(cout);
 
-    std::cout << std::endl;
+   std::cout << std::endl;
 
-    // Test set dimensions
-    std::cout << "---------- Test set dimensions ----------" << std::endl;
+   // Test set dimensions
+   std::cout << "---------- Test set dimensions ----------" << std::endl;
 
-    cercle->setRadius(5);
-    carre->setDimensions(4);
-    rectangle->setDimensions(3, 7);
+   cercle->setRadius(5);
+   carre->setDimensions(4);
+   rectangle->setDimensions(3, 7);
 
-    cercle->afficher(cout);
-    carre->afficher(cout);
-    rectangle->afficher(cout);
+   cercle->afficher(cout);
+   carre->afficher(cout);
+   rectangle->afficher(cout);
 
-    // Test calcul aire
-    std::cout << "---------- Test calcul aire ----------" << std::endl;
-    std::cout << "Aire du cercle: " << cercle->aire() << std::endl;
-    std::cout << "Aire du carré: " << carre->aire() << std::endl;
-    std::cout << "Aire du rectangle: " << rectangle->aire() << std::endl;
+   // Test calcul aire
+   std::cout << "---------- Test calcul aire ----------" << std::endl;
+   std::cout << "Aire du cercle: " << cercle->aire() << std::endl;
+   std::cout << "Aire du carré: " << carre->aire() << std::endl;
+   std::cout << "Aire du rectangle: " << rectangle->aire() << std::endl;
 
-    // Test valeurs limites
-    std::cout << "---------- Test valeurs limites ----------" << std::endl;
-    cercle->setRadius(0);
-    carre->setDimensions(-1);
-    rectangle->setDimensions(3, -2);
+   // Test valeurs limites
+   std::cout << "---------- Test valeurs limites ----------" << std::endl;
+   cercle->setRadius(0);
+   carre->setDimensions(-1);
+   rectangle->setDimensions(3, -2);
 
-    cercle->afficher(cout);
-    carre->afficher(cout);
-    rectangle->afficher(cout);
+   cercle->afficher(cout);
+   carre->afficher(cout);
+   rectangle->afficher(cout);
 
-    std::cout << "Aire du cercle avec rayon 0: " << cercle->aire() << std::endl;
-    std::cout << "Aire du carré avec côté -1: " << carre->aire() << std::endl;
-    std::cout << "Aire du rectangle avec largeur -2: " << rectangle->aire() << std::endl;
+   std::cout << "Aire du cercle avec rayon 0: " << cercle->aire() << std::endl;
+   std::cout << "Aire du carré avec côté -1: " << carre->aire() << std::endl;
+   std::cout << "Aire du rectangle avec largeur -2: " << rectangle->aire() << std::endl;
 
-    delete cercle;
-    delete carre;
-    delete rectangle;
+   delete cercle;
+   delete carre;
+   delete rectangle;
 }
 
 void Tests::tests_unitaires_couche()
@@ -151,8 +147,9 @@ void Tests::tests_unitaires_couche()
 
 void Tests::tests_unitaires_vecteur()
 {
-
    cout << "========== TESTS UNITAIRE VECTEUR ==========" << endl;
+
+   // Creating shapes
    Forme *cercle = new Cercle();
    Forme *carre = new Carre();
    Forme *rectangle = new Rectangle();
@@ -161,105 +158,126 @@ void Tests::tests_unitaires_vecteur()
    Forme *carre2 = new Carre(2, 3, 1);
    Forme *rectangle2 = new Rectangle(0, 5, 1, 2);
 
+   // Creating layers
    Couche *couche1 = new Couche();
-
    couche1->changeLayerState(ACTIVE);
-
    couche1->addShape(carre);
    couche1->addShape(rectangle);
    couche1->addShape(cercle);
 
-   couche1->dispLayer(cout);
-
    Couche *couche2 = new Couche();
-
    couche2->changeLayerState(ACTIVE);
-
    couche2->addShape(cercle2);
    couche2->addShape(carre2);
    couche2->addShape(rectangle2);
 
+   // Creating vecteur and adding layers
    Vecteur *vect = new Vecteur();
-
    vect->add(couche1);
    vect->add(couche2);
 
+   // Displaying vecteur
    vect->disp(std::cout);
 
+   // Testing Vecteur methods
+   cout << "Capacity: " << vect->getCapacity() << endl;
+   cout << "Size: " << vect->getSize() << endl;
+
+   Couche *retrievedLayer = vect->get(0);
+   cout << "Retrieved Layer 1: " << endl;
+   retrievedLayer->dispLayer(cout);
+
+   retrievedLayer = vect->get(1);
+   cout << "Retrieved Layer 2: " << endl;
+   retrievedLayer->dispLayer(cout);
+
+   Couche *removedLayer = vect->rm(0);
+   cout << "Removed Layer: " << endl;
+   removedLayer->dispLayer(cout);
+   delete removedLayer;
+
+   cout << "Vecteur after removal: " << endl;
+   vect->disp(cout);
+
+   cout << "Is empty: " << (vect->isEmpty() ? "true" : "false") << endl;
+
+   vect->emptyVector();
+   cout << "Vecteur after emptying: " << endl;
+   vect->disp(cout);
+   cout << "Is empty: " << (vect->isEmpty() ? "true" : "false") << endl;
+
+   // Clean up remaining dynamically allocated memory
+   delete vect;
+
+   // Clean up shapes not managed by Couche or Vecteur
    delete cercle;
    delete rectangle;
    delete carre;
-
    delete cercle2;
    delete rectangle2;
    delete carre2;
-
-   delete couche1;
-   delete couche2;
-
-   delete[] vect;
 }
 
 void Tests::tests_unitaires_canevas()
 {
-    std::cout << "========== TESTS UNITAIRES CANEVAS ==========" << std::endl;
+   std::cout << "========== TESTS UNITAIRES CANEVAS ==========" << std::endl;
 
-    Canevas *canevas = new Canevas();
+   Canevas *canevas = new Canevas();
 
-    Forme *cercle = new Cercle();
-    Forme *carre = new Carre();
-    Forme *rectangle = new Rectangle();
+   Forme *cercle = new Cercle();
+   Forme *carre = new Carre();
+   Forme *rectangle = new Rectangle();
 
-    std::cout << "---------- Test ajout de formes dans différentes couches ----------" << std::endl;
-    
-    canevas->ajouterCouche();
-    canevas->activerCouche(0);
-    canevas->ajouterForme(cercle);
-    
-    canevas->ajouterCouche();
-    canevas->activerCouche(1);
-    canevas->ajouterForme(carre);
-    
-    canevas->ajouterCouche();
-    canevas->activerCouche(2);
-    canevas->ajouterForme(rectangle);
+   std::cout << "---------- Test ajout de formes dans différentes couches ----------" << std::endl;
 
-    canevas->afficher(std::cout);
+   canevas->ajouterCouche();
+   canevas->activerCouche(0);
+   canevas->ajouterForme(cercle);
 
-    std::cout << std::endl;
+   canevas->ajouterCouche();
+   canevas->activerCouche(1);
+   canevas->ajouterForme(carre);
 
-    std::cout << "---------- Test suppression de formes dans différentes couches ----------" << std::endl;
-    canevas->activerCouche(0);
-    canevas->retirerForme(0);
+   canevas->ajouterCouche();
+   canevas->activerCouche(2);
+   canevas->ajouterForme(rectangle);
 
-    canevas->activerCouche(1);
-    canevas->retirerForme(0);
+   canevas->afficher(std::cout);
 
-    canevas->afficher(std::cout);
+   std::cout << std::endl;
 
-    std::cout << std::endl;
+   std::cout << "---------- Test suppression de formes dans différentes couches ----------" << std::endl;
+   canevas->activerCouche(0);
+   canevas->retirerForme(0);
 
-    std::cout << "---------- Test calcul de l'aire totale ----------" << std::endl;
-    canevas->activerCouche(0);
-    canevas->ajouterForme(cercle);
+   canevas->activerCouche(1);
+   canevas->retirerForme(0);
 
-    canevas->activerCouche(1);
-    canevas->ajouterForme(carre);
+   canevas->afficher(std::cout);
 
-    canevas->activerCouche(2);
-    canevas->ajouterForme(rectangle);
+   std::cout << std::endl;
 
-    double aire_totale = canevas->aire();
-    std::cout << "Aire totale du canevas: " << aire_totale << std::endl;
+   std::cout << "---------- Test calcul de l'aire totale ----------" << std::endl;
+   canevas->activerCouche(0);
+   canevas->ajouterForme(cercle);
 
-    std::cout << std::endl;
+   canevas->activerCouche(1);
+   canevas->ajouterForme(carre);
 
-    std::cout << "---------- Test reinitialisation du canevas ----------" << std::endl;
-    canevas->reinitialiser();
+   canevas->activerCouche(2);
+   canevas->ajouterForme(rectangle);
 
-    canevas->afficher(std::cout);
+   double aire_totale = canevas->aire();
+   std::cout << "Aire totale du canevas: " << aire_totale << std::endl;
 
-    delete canevas;
+   std::cout << std::endl;
+
+   std::cout << "---------- Test reinitialisation du canevas ----------" << std::endl;
+   canevas->reinitialiser();
+
+   canevas->afficher(std::cout);
+
+   delete canevas;
 }
 
 void Tests::tests_valid()
@@ -267,11 +285,11 @@ void Tests::tests_valid()
    std::cout << std::endl;
    std::cout << "ETAPE 1-2" << std::endl;
    std::cout << "1: Creation d'un canevas" << std::endl;
-   std::cout << "2: Affichage de son contenu" << std::endl;
+   std::cout << "2: Affichage de l'aire" << std::endl;
    std::cout << std::endl;
 
    Canevas *canevas = new Canevas();
-   canevas->afficher(std::cout);
+   std::cout << "Aire du canevas: " << canevas->aire() << std::endl;
 
    std::cout << std::endl;
 
@@ -446,31 +464,48 @@ void Tests::tests_valid()
 void Tests::tests_unitaires()
 {
    // Fait tous les tests unitaires
-   tests_unitaires_formes();
-   tests_unitaires_couche();
+   // tests_unitaires_formes();
+   // tests_unitaires_couche();
    tests_unitaires_vecteur();
-   tests_unitaires_canevas();
+   // tests_unitaires_canevas();
 }
 
 void Tests::tests_application()
 {
    // Fait tous les tests applicatifs
-   tests_application_cas_01();
+   // tests_application_cas_01();
    tests_application_cas_02();
 }
 
 void Tests::tests_application_cas_01()
 {
+   std::ofstream outfile("valid_results.txt");
+
+   std::streambuf *coutbuf = std::cout.rdbuf();
+   std::cout.rdbuf(outfile.rdbuf());
+
    cout << "========== TESTS VALIDATION ==========" << endl;
-   // tests_valid();
-   // tests_unitaires_couche();
+   tests_valid();
+
+   std::cout.rdbuf(coutbuf);
+
+   outfile.close();
 }
 
 void Tests::tests_application_cas_02()
 {
-   cout << "TESTS APPLICATION (CAS 02)" << endl;
+   std::ofstream outfile("unit_tests.txt");
+
+   std::streambuf *coutbuf = std::cout.rdbuf();
+   std::cout.rdbuf(outfile.rdbuf());
+
+   cout << "========== TESTS UNITAIRES ==========" << endl;
    tests_unitaires_formes();
    tests_unitaires_couche();
    tests_unitaires_vecteur();
    tests_unitaires_canevas();
+
+   std::cout.rdbuf(coutbuf);
+
+   outfile.close();
 }

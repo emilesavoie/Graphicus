@@ -1,19 +1,19 @@
 #
 # Auteur: C.-A. Brunet
 # Date: 13 juin 2024
-# Modifie par : ...
-# Date : ...
-# Description: compilation de graphicus-01. Ce fichier fait partie de 
+# Modifie par : Emile Savoie
+# Date : 5 juin 2024
+# Description: compilation de graphicus-02. Ce fichier fait partie de 
 #	la distribution de Graphicus.
 #
 
-graphicus-01: graphicus-01.o tests.o canevas.o couche.o forme.o rectangle.o cercle.o carre.o vecteur.o
-	g++ -o graphicus-01 graphicus-01.o tests.o canevas.o couche.o forme.o rectangle.o cercle.o carre.o vecteur.o
+graphicus-02: graphicus-02.o tests.o canevas.o couche.o forme.o rectangle.o cercle.o carre.o vecteur.o
+	g++ -o graphicus-02 graphicus-02.o tests.o canevas.o couche.o forme.o rectangle.o cercle.o carre.o vecteur.o
 
-graphicus-01.o: graphicus-01.cpp canevas.h couche.h forme.h
-	g++ -c -g graphicus-01.cpp
+graphicus-02.o: graphicus-02.cpp tests.h
+	g++ -c -g graphicus-02.cpp
 
-tests.o: tests.cpp tests.h canevas.h couche.h forme.h
+tests.o: tests.cpp tests.h canevas.h couche.h forme.h rectangle.h carre.h cercle.h
 	g++ -c -g tests.cpp
 
 canevas.o: canevas.cpp canevas.h couche.h forme.h

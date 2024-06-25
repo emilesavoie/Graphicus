@@ -22,21 +22,24 @@ bool Canevas::ajouterCouche()
 {
    Couche *couche = new Couche();
 
-   for (int i = 0; i < canevas.getSize(); i++)
+   if (canevas.getSize() < MAX_FORMES)
    {
-      if (canevas.get(i)->getState() == ACTIVE)
+      for (int i = 0; i < canevas.getSize(); i++)
       {
-         if (canevas.add(couche))
+         if (canevas.get(i)->getState() == ACTIVE)
          {
-            return true;
+            if (canevas.add(couche))
+            {
+               return true;
+            }
          }
       }
-   }
 
-   if (canevas.add(couche))
-   {
-      couche->changeLayerState(ACTIVE);
-      return true;
+      if (canevas.add(couche))
+      {
+         couche->changeLayerState(ACTIVE);
+         return true;
+      }
    }
 
    return false;
@@ -44,6 +47,8 @@ bool Canevas::ajouterCouche()
 
 bool Canevas::retirerCouche(int index)
 {
+   this->reinitialiserCouche(index);
+
    if (canevas.rm(index))
    {
       return true;
@@ -52,20 +57,20 @@ bool Canevas::retirerCouche(int index)
    return false;
 }
 
-bool Canevas::reinitialiser() // Check return false case;
+bool Canevas::reinitialiser()
 {
    canevas.emptyVector();
-   
+
    return true;
 }
 
 bool Canevas::reinitialiserCouche(int index)
 {
-   if(index >= 0 || index < canevas.getSize())
+   if (index >= 0 && index < canevas.getSize())
    {
-      if(canevas.get(index)->getState() == ACTIVE)
+      if (canevas.get(index)->getState() == ACTIVE)
       {
-         if(canevas.get(index)->resetLayer())
+         if (canevas.get(index)->resetLayer())
          {
             canevas.get(index)->changeLayerState(ACTIVE);
          }
@@ -73,6 +78,21 @@ bool Canevas::reinitialiserCouche(int index)
       else
       {
          canevas.get(index)->resetLayer();
+      }
+
+      bool noActiveCouche = false;
+      for (int i = 0; i < canevas.getSize(); i++)
+      {
+         if (i != index && canevas.get(i)->getState() == ACTIVE)
+         {
+            noActiveCouche = true;
+            break;
+         }
+      }
+
+      if (!noActiveCouche)
+      {
+         canevas.get(0)->changeLayerState(ACTIVE);
       }
 
       return true;
@@ -145,12 +165,10 @@ bool Canevas::retirerForme(int index)
       {
          if (canevas.get(i)->getState() == ACTIVE)
          {
-            if(canevas.get(i)->rmShape(index))
+            if (canevas.get(i)->rmShape(index))
             {
                return true;
-               
             }
-
          }
       }
    }

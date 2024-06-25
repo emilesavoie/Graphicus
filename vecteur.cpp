@@ -101,26 +101,21 @@ Couche* Vecteur::get(int index)
 
 Couche* Vecteur::rm(int index)
 {
-    if(get(index) != nullptr || index >= 0 || index <= vectorSize_)
+    if(index < 0 || index >= vectorSize_)
     {
-        Couche** temp = new Couche*[vectorCapacity_];
-
-        for(int i = 0; i < vectorSize_; i++)
-        {
-            if(i == index)
-            {
-                i++;
-            }
-
-            temp[i] = vect_[i];
-        }
-
-        vectorSize_ --;
-
-        return get(index);
+        return nullptr;
     }
 
-    return nullptr;
+    Couche* removedElement = vect_[index];
+
+    for(int i = index; i < vectorSize_ - 1; i++)
+    {
+        vect_[i] = vect_[i + 1];
+    }
+
+    vectorSize_--;
+
+    return removedElement;
 }
 
 void Vecteur::disp(ostream & s)
