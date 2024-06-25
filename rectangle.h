@@ -24,7 +24,7 @@ public:
     //================================================
     //Public methods
     Dimensions getDimensions();
-    void setDimensions(float height, float length);
+    virtual void setDimensions(float height, float length);
     double aire();
     void afficher(ostream & s);
 

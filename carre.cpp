@@ -27,7 +27,7 @@ float Carre::getSideLength()
     return sideLength_;
 }
 
-void Carre::SetSideLenghth(float sideLenght)
+void Carre::setDimensions(float sideLenght)
 {
     sideLength_ = sideLenght;
 }

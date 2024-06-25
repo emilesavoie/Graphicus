@@ -21,7 +21,7 @@ public:
     //================================================
     //Public methods
     float getSideLength();
-    void SetSideLenghth(float sideLength);
+    void setDimensions(float sideLength);
     double aire();
     void afficher(ostream & s);
 

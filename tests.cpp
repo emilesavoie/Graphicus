@@ -17,27 +17,53 @@
 
 void Tests::tests_unitaires_formes()
 {
-   bool all_tests_passed = true;
+    //----------------------------------------
+    // Test constructeur par défaut
+    std::cout << "---------- Test constructeur par défaut ----------" << std::endl;
+    Cercle *cercle = new Cercle();
+    Carre *carre = new Carre();
+    Rectangle *rectangle = new Rectangle();
 
-   //----------------------------------------========
-   // Test constructeur par défaut
-   Forme *cercle = new Cercle();
-   Forme *carre = new Carre();
-   Forme *rectangle = new Rectangle();
+    cercle->afficher(cout);
+    carre->afficher(cout);
+    rectangle->afficher(cout);
 
-   std::cout << "---------- Test default constructor ----------" << endl;
+    std::cout << std::endl;
 
-   cercle->afficher(cout);
-   carre->afficher(cout);
-   rectangle->afficher(cout);
+    // Test set dimensions
+    std::cout << "---------- Test set dimensions ----------" << std::endl;
 
-   std::cout << endl;
+    cercle->setRadius(5);
+    carre->setDimensions(4);
+    rectangle->setDimensions(3, 7);
 
-   std::cout << "---------- Test set dimensions ----------" << endl;
+    cercle->afficher(cout);
+    carre->afficher(cout);
+    rectangle->afficher(cout);
 
-   cercle->~Forme();
-   carre->~Forme();
-   rectangle->~Forme();
+    // Test calcul aire
+    std::cout << "---------- Test calcul aire ----------" << std::endl;
+    std::cout << "Aire du cercle: " << cercle->aire() << std::endl;
+    std::cout << "Aire du carré: " << carre->aire() << std::endl;
+    std::cout << "Aire du rectangle: " << rectangle->aire() << std::endl;
+
+    // Test valeurs limites
+    std::cout << "---------- Test valeurs limites ----------" << std::endl;
+    cercle->setRadius(0);
+    carre->setDimensions(-1);
+    rectangle->setDimensions(3, -2);
+
+    cercle->afficher(cout);
+    carre->afficher(cout);
+    rectangle->afficher(cout);
+
+    std::cout << "Aire du cercle avec rayon 0: " << cercle->aire() << std::endl;
+    std::cout << "Aire du carré avec côté -1: " << carre->aire() << std::endl;
+    std::cout << "Aire du rectangle avec largeur -2: " << rectangle->aire() << std::endl;
+
+    delete cercle;
+    delete carre;
+    delete rectangle;
 }
 
 void Tests::tests_unitaires_couche()
@@ -143,7 +169,7 @@ void Tests::tests_unitaires_vecteur()
    couche1->addShape(rectangle);
    couche1->addShape(cercle);
 
-   // couche1->dispLayer(cout);
+   couche1->dispLayer(cout);
 
    Couche *couche2 = new Couche();
 
@@ -170,11 +196,70 @@ void Tests::tests_unitaires_vecteur()
 
    delete couche1;
    delete couche2;
+
+   delete[] vect;
 }
 
 void Tests::tests_unitaires_canevas()
 {
-   // Tests sur la classe Canevas
+    std::cout << "========== TESTS UNITAIRES CANEVAS ==========" << std::endl;
+
+    Canevas *canevas = new Canevas();
+
+    Forme *cercle = new Cercle();
+    Forme *carre = new Carre();
+    Forme *rectangle = new Rectangle();
+
+    std::cout << "---------- Test ajout de formes dans différentes couches ----------" << std::endl;
+    
+    canevas->ajouterCouche();
+    canevas->activerCouche(0);
+    canevas->ajouterForme(cercle);
+    
+    canevas->ajouterCouche();
+    canevas->activerCouche(1);
+    canevas->ajouterForme(carre);
+    
+    canevas->ajouterCouche();
+    canevas->activerCouche(2);
+    canevas->ajouterForme(rectangle);
+
+    canevas->afficher(std::cout);
+
+    std::cout << std::endl;
+
+    std::cout << "---------- Test suppression de formes dans différentes couches ----------" << std::endl;
+    canevas->activerCouche(0);
+    canevas->retirerForme(0);
+
+    canevas->activerCouche(1);
+    canevas->retirerForme(0);
+
+    canevas->afficher(std::cout);
+
+    std::cout << std::endl;
+
+    std::cout << "---------- Test calcul de l'aire totale ----------" << std::endl;
+    canevas->activerCouche(0);
+    canevas->ajouterForme(cercle);
+
+    canevas->activerCouche(1);
+    canevas->ajouterForme(carre);
+
+    canevas->activerCouche(2);
+    canevas->ajouterForme(rectangle);
+
+    double aire_totale = canevas->aire();
+    std::cout << "Aire totale du canevas: " << aire_totale << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "---------- Test reinitialisation du canevas ----------" << std::endl;
+    canevas->reinitialiser();
+
+    canevas->afficher(std::cout);
+
+    delete canevas;
 }
 
 void Tests::tests_valid()
@@ -371,18 +456,21 @@ void Tests::tests_application()
 {
    // Fait tous les tests applicatifs
    tests_application_cas_01();
-   // tests_application_cas_02();
+   tests_application_cas_02();
 }
 
 void Tests::tests_application_cas_01()
 {
    cout << "========== TESTS VALIDATION ==========" << endl;
-   tests_valid();
+   // tests_valid();
    // tests_unitaires_couche();
 }
 
 void Tests::tests_application_cas_02()
 {
    cout << "TESTS APPLICATION (CAS 02)" << endl;
-   // Il faut ajouter les operations realisant ce scenario de test.
+   tests_unitaires_formes();
+   tests_unitaires_couche();
+   tests_unitaires_vecteur();
+   tests_unitaires_canevas();
 }

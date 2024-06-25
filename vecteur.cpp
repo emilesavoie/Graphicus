@@ -46,7 +46,7 @@ void Vecteur::doubleCapacity()
         temp[i] = vect_[i];
     }
     
-    delete vect_;
+    delete[] vect_;
 
     vect_ = temp;
     vectorCapacity_ = newCapacity;
