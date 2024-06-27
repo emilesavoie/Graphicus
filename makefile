@@ -16,25 +16,25 @@ graphicus-02.o: graphicus-02.cpp tests.h
 tests.o: tests.cpp tests.h canevas.h couche.h forme.h rectangle.h carre.h cercle.h
 	g++ -c -g tests.cpp
 
-canevas.o: canevas.cpp canevas.h couche.h forme.h
+canevas.o: canevas.cpp canevas.h couche.h forme.h vecteur.h
 	g++ -c -g canevas.cpp
 
 couche.o: couche.cpp couche.h forme.h
 	g++ -c -g couche.cpp
 
-forme.o: forme.cpp forme.h
+forme.o: forme.cpp forme.h 
 	g++ -c -g forme.cpp
 
-rectangle.o: rectangle.cpp rectangle.h
+rectangle.o: rectangle.cpp rectangle.h dimensions.h
 	g++ -c -g rectangle.cpp
 
-cercle.o: cercle.cpp cercle.h
+cercle.o: cercle.cpp cercle.h forme.h
 	g++ -c -g cercle.cpp
 
-carre.o: carre.cpp carre.h
+carre.o: carre.cpp carre.h rectangle.h
 	g++ -c -g carre.cpp
 
-vecteur.o: vecteur.cpp vecteur.h 
+vecteur.o: vecteur.cpp vecteur.h couche.h
 	g++ -c -g vecteur.cpp
 
 clean:
