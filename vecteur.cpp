@@ -10,120 +10,95 @@
 
 Vecteur::Vecteur()
 {
-    vectorCapacity_ = VECTOR_INITIAL_CAPACITY;
-    vect_ = new Couche*[vectorCapacity_];
-    vectorSize_ = 0;
+	_capacity = VECTOR_INITIAL_CAPACITY;
+	_size = 0;
+	
+	for(int i = 0; i < _capacity; i++)
+	{
+		vect[i] = nullptr;
+	}
+
 }
 
 Vecteur::~Vecteur()
 {
-    for(int i = 0; i < vectorSize_; i++)
-    {
-        delete vect_[i];
-    }
+	for(int i = 0; i < _size; i++)
+	{
+		delete vect[i];
+	}
+	
+	delete[] vect;
 
-    delete[] vect_;
 }
 
 int Vecteur::getCapacity()
 {
-    return vectorCapacity_;
+	return _capacity;
 }
 
 int Vecteur::getSize()
 {
-    return vectorSize_;
+	return _size;
 }
 
 void Vecteur::doubleCapacity()
 {
-    int newCapacity = vectorCapacity_ * 2;
-
-    Couche** temp = new Couche*[newCapacity];
-
-    for(int i = 0; i < vectorCapacity_; i++)
-    {
-        temp[i] = vect_[i];
-    }
-    
-    delete[] vect_;
-
-    vect_ = temp;
-    vectorCapacity_ = newCapacity;
+	int newCap = _capacity * 2
+	Couche** tempVect = new Couche[newCap];
+	
+	for(int i = 0; i < newCap; i++)
+	{
+		if(i < _capacity)
+		{
+			tempVect[i] = vect[i];
+		}
+		else
+		{
+			tempVect[i] = nullptr;
+		}
+		
+	}
+	
+	delete[] vect;
+	
+	vect = tempVect;
+	
+	delete tempVect;
+	
+	_capacity = _newCap;
 }
 
 void Vecteur::emptyVector()
 {
-    for(int i = 0; i < vectorSize_; i++)
-    {
-        delete vect_[i];
-    }
 
-    vectorSize_ = 0;
 }
 
 bool Vecteur::isEmpty()
 {
-    if(vectorSize_ == 0)
-    {
-        return true;
-    }
-
-    return false;
+	if(_size == 0)
+	{
+		return true;
+	}
+	
+	return false;
 }
 
 bool Vecteur::add(Couche *element)
 {
-    if(element != nullptr)
-    {
-        if(vectorCapacity_ <= vectorSize_ + 1)
-        {
-            this->doubleCapacity();
-        }
 
-        vect_[vectorSize_] = element;
-        vectorSize_ ++;
-        return true;
-    }
-
-    return false;
 }
 
 Couche* Vecteur::get(int index)
 {
-    if(index > 0 || index <= vectorSize_)
-    {
-        return vect_[index];
-    }
 
-    return nullptr;
 }
 
 Couche* Vecteur::rm(int index)
 {
-    if(index < 0 || index >= vectorSize_)
-    {
-        return nullptr;
-    }
 
-    Couche* removedElement = vect_[index];
-
-    for(int i = index; i < vectorSize_ - 1; i++)
-    {
-        vect_[i] = vect_[i + 1];
-    }
-
-    vectorSize_--;
-
-    return removedElement;
 }
 
 void Vecteur::disp(ostream & s)
 {
-    
-    for(int i = 0; i < vectorSize_; i++)
-    {
-        s << "----- Couche " << i << "-----" << endl;
-        vect_[i]->dispLayer(cout);
-    }
+
 }
